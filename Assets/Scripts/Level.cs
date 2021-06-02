@@ -5,14 +5,35 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
 
-    [SerializeField] int breakableBlocks;   //for debugging 
+    //parameters
+    [SerializeField] int breakableBlocks = 0;   //for debugging 
 
+
+    //cached reference 
+    SceneLoader sceneLoader;
+
+
+    private void Start()
+    {
+        sceneLoader = FindObjectOfType<SceneLoader>();
+    }
+
+   
 
     public void CountBreakableBlocks()
     {
         breakableBlocks++;
     }
     
+    public void BlockDestroyed()
+    {
+        breakableBlocks--;
+        if (breakableBlocks <= 0)
+        {
+            sceneLoader.loadNextScene(); 
+        }    
+    }
+
     
     
 }
